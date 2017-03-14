@@ -49,6 +49,7 @@ def sFunction(tau,s = [0],r = [1]):
 
 def tunstallNodes2(p, imax, inodes = [(0,0)], imin = 0):
     ''' 
+    Not currently used.
     Function to generate the internal nodes of a Tunstall code.  Can be done recursively by specifying a 
     previous set of internal nodes and the level to which that set was generated.  
 
@@ -83,6 +84,9 @@ def tunstallNodes2(p, imax, inodes = [(0,0)], imin = 0):
     return inodes
 
 def tunstallOneStep(p, i, inodes, s, r, lext, rext, epsilon, M, kList, ELlist):
+    ''' 
+    Goes through one step of the generation of a Tunstall code.  This is not the generation of a single leaf; rather, it is the generation of collection of leaves, where the leaves generated follows a single step of Kieffer's algorithm.
+    '''
     q = 1-p
     tau = np.log(q)/np.log(p)
     mi = int(np.floor((i+1)*tau))
@@ -242,9 +246,13 @@ def achievabilityTrivial(M):
     return trK
 
 def Qinv(x):
+    # Inverse Q function.  Highly useful
     return math.sqrt(2)*erfinv(1-2*(x))
 
 def gaussApprox(M,p,epsilon):
+    '''
+    Gaussian approximation of the compression rate of a Tunstall code.
+    '''
     gK = []
     q = 1-p
     H = p*math.log(1./p,2) + q*math.log(1./q,2)

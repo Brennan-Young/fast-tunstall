@@ -1,3 +1,8 @@
+'''
+Does a series of plotting operations for some of the functions in tunstall_code.py
+'''
+
+
 import tunstall_code as t
 import math
 import numpy as np
