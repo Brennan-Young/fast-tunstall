@@ -114,6 +114,11 @@ def tunstallOneStep(p, i, inodes, s, r, lext, rext, epsilon, M, kList, ELlist):
     return(inodes,s,r)
 
 def tunstallNodes(p, imax, epsilon = 10**(-3)):
+	'''
+	Computes a tree for a Tunstall code.  The Tunstall tree is constructed with an i.i.d. binary source with probability p, generated using Kieffer's algorithm.  The number of steps of Kieffer's algorithm run is set to imax.  Epsilon is used to compute a parameter of the code but does not affect the generation of the code itself.
+
+	TODO: Move epsilon away from being an argument to this function.  It makes you think that it will affect how the code is generated (it doesn't)
+	'''
     inodes = [(0,0)] # current list of internal nodes
     M = []
     kList = []
