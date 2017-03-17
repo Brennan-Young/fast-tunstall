@@ -9,7 +9,8 @@ from scipy.special import erfinv
 Main source:
 
 
-[1]: J. C. Kieffer, "Fast Generation of Tunstall Codes," 2007 IEEE International Symposium on Information 
+[1]: J. C. Kieffer, "Fast Generation of Tunstall Codes," 2007 IEEE 
+International Symposium on Information
 Theory, Nice, 2007, pp. 76-80.
 doi: 10.1109/ISIT.2007.4557079
 URL: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4557079&isnumber=4557062
@@ -50,8 +51,9 @@ def sFunction(tau,s = [0],r = [1]):
 def tunstallNodes2(p, imax, inodes = [(0,0)], imin = 0):
     ''' 
     Not currently used.
-    Function to generate the internal nodes of a Tunstall code.  Can be done recursively by specifying a 
-    previous set of internal nodes and the level to which that set was generated.  
+    Function to generate the internal nodes of a Tunstall code.  Can be done 
+    recursively by specifying a previous set of internal nodes and the level 
+    to which that set was generated.  
 
     '''
     s = [0]
@@ -85,7 +87,10 @@ def tunstallNodes2(p, imax, inodes = [(0,0)], imin = 0):
 
 def tunstallOneStep(p, i, inodes, s, r, lext, rext, epsilon, M, kList, ELlist):
     ''' 
-    Goes through one step of the generation of a Tunstall code.  This is not the generation of a single leaf; rather, it is the generation of collection of leaves, where the leaves generated follows a single step of Kieffer's algorithm.
+    Goes through one step of the generation of a Tunstall code.  This is not 
+    the generation of a single leaf; rather, it is the generation of 
+    collection of leaves, where the leaves generated follows a single step of 
+    Kieffer's algorithm.
     '''
     q = 1-p
     tau = np.log(q)/np.log(p)
@@ -115,9 +120,14 @@ def tunstallOneStep(p, i, inodes, s, r, lext, rext, epsilon, M, kList, ELlist):
 
 def tunstallNodes(p, imax, epsilon = 10**(-3)):
 	'''
-	Computes a tree for a Tunstall code.  The Tunstall tree is constructed with an i.i.d. binary source with probability p, generated using Kieffer's algorithm.  The number of steps of Kieffer's algorithm run is set to imax.  Epsilon is used to compute a parameter of the code but does not affect the generation of the code itself.
+	Computes a tree for a Tunstall code.  The Tunstall tree is constructed 
+	with an i.i.d. binary source with probability p, generated using Kieffer's 
+	algorithm.  The number of steps of Kieffer's algorithm run is set to 
+	imax.  Epsilon is used to compute a parameter of the code but does not 
+	affect the generation of the code itself.
 
-	TODO: Move epsilon away from being an argument to this function.  It makes you think that it will affect how the code is generated (it doesn't)
+	TODO: Move epsilon away from being an argument to this function.  It makes 
+	you think that it will affect how the code is generated (it doesn't)
 	'''
     inodes = [(0,0)] # current list of internal nodes
     M = []
@@ -148,7 +158,10 @@ def tunstallNodes(p, imax, epsilon = 10**(-3)):
     return (M,kList,ELlist)
 
 def parentsOfLeaves(inode,lext,rext):
-    # append the newest node to the list of nodes which need left- and right- extensions
+	'''
+    append the newest node to the list of nodes which need left- and right- 
+    extensions
+    '''
     lext.append(inode)
     rext.append(inode)
     # if this node is above another internal node, remove that node from the list
@@ -190,6 +203,12 @@ def list_nCr(counts):
     return sum(c)
 
 def findMaxk(leaves,counts,epsilon,p):
+	'''
+	For a given value of 0 <= epsilon <= 1 and a tunstall code, computes the 
+	maximum k for which P[l(X) <= k] <= epsilon.  Here, X is a random variable 
+	denoting a random leaf chosen from the Tunstall code tree, and l(X) is the 
+	length of that leaf from the root of the tree.
+	'''
     q = 1 - p
     lengthClass = []
     for leaf in leaves:
