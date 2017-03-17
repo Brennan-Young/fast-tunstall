@@ -14,6 +14,7 @@ International Symposium on Information
 Theory, Nice, 2007, pp. 76-80.
 doi: 10.1109/ISIT.2007.4557079
 URL: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4557079&isnumber=4557062
+
 '''
 
 
@@ -243,12 +244,20 @@ def findMaxk(leaves,counts,epsilon,p):
     return maxk
 
 def MKadd(lext,rext,epsilon,p,M,kList):
+	'''
+	For a single step of the Tunstall code generation, computes the maximum k for which P[l(X) <= k] <= epsilon holds.  The goal here is to do this for each step to produce a plot of how this k evolves with n.  See the function findMaxk() for further details.
+	'''
     leaves, counts = makeLeaves(lext,rext)
     M.append(list_nCr(counts))
     kList.append(findMaxk(leaves,counts,epsilon,p))
     return
 
 def expectedLength(leaves,counts,p):
+	'''
+	Expected length of a Tunstall code, as determined by its tree.  
+
+	Computes E[l(X)], where X is a random variable denoting the selection of a random leaf from the Tunstall code tree and l(X) denotes the distance of that leaf from the root.  In data compression, this is the expected length of a substring of our data source that we compress.
+	'''
     q = 1 - p
     El = 0
     for l,c in zip(leaves,counts):
